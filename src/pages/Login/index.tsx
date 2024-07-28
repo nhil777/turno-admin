@@ -4,26 +4,35 @@ import { LoginForm } from '../../components/LoginForm';
 import { LoginData } from '../../components/LoginForm/types';
 import { login } from '../../services/Auth';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export const Login = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const onSubmit: SubmitHandler<LoginData> = async (data) => {
+    setIsLoading(true);
+
     const { email, password } = data;
 
-    const success = await login({ email, password });
+    login({ email, password })
+      .then(() => navigate('/'))
+      .catch(error => {
+        const { response } = error;
 
-    if (!success) {
-      alert('Login failed');
-      return;
-    }
+        if (response.status === 401) {
+          alert('Invalid credentials');
+          return;
+        }
 
-    navigate('/');
+        alert(response.statusText);
+      })
+      .finally(() => setIsLoading(false));
   };
 
-  return (
+  return isLoading ? <p>Loading</p> : (
     <FormContainer>
-        <FormTitle>Turno Admin</FormTitle>
-        <LoginForm onSubmit={onSubmit} />
+      <FormTitle>Turno Admin</FormTitle>
+      <LoginForm onSubmit={onSubmit} />
     </FormContainer>
   );
 };
