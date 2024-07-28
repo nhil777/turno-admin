@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Deposit } from "../../services/Deposit/types";
 import { list } from "../../services/Deposit";
+import { useNavigate } from "react-router-dom";
+import { convertDateString, formatAmount } from "../../Helper";
 
 export const DepositList = () => {
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [deposits, setDeposits] = useState<Deposit[]>([]);
 
@@ -19,8 +22,16 @@ export const DepositList = () => {
     }, []);
 
     return isLoading ? <p>Loading</p> : (
-        <>
-            <p>{JSON.stringify(deposits)}</p>
-        </>
+        deposits.map(deposit => {
+            return (
+                <tr onClick={() => navigate(`/deposit/${deposit.id}`)}>
+                    <td>
+                        <strong>{deposit.user.name}</strong>
+                        <p>{convertDateString(deposit.created_at)}</p>
+                    </td>
+                    <td>${formatAmount(deposit.amount)}</td>
+                </tr>
+            )
+        })
     );
 };
