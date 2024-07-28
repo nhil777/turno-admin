@@ -1,11 +1,20 @@
 import { SubmitHandler } from 'react-hook-form';
 import { FormContainer, FormTitle } from './styles';
 import { LoginForm } from '../../components/LoginForm';
-import { FormData } from '../../components/LoginForm/types';
+import { LoginData } from '../../components/LoginForm/types';
+import { login } from '../../services/Auth';
 
 export const Login = () => {
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<LoginData> = async (data) => {
+    const { email, password } = data;
+
+    const success = await login({ email, password });
+
+    if (success) {
+      alert('success')
+    } else {
+      alert('Login failed');
+    }
   };
 
   return (

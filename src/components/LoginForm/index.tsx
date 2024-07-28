@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { FormData, LoginFormI } from './types';
+import { LoginData, LoginFormI } from './types';
 import { ErrorContainer, InputWrapper } from './styles';
 
 export const LoginForm = ({ onSubmit }: LoginFormI) => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
