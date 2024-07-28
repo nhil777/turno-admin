@@ -26,7 +26,7 @@ export const DepositList = () => {
             return (
                 <tr onClick={() => navigate(`/deposit/${deposit.id}`)}>
                     <td>
-                        <strong>{deposit.user.name}</strong>
+                        <strong>{deposit.user.name} - {deposit.status}</strong>
                         <p>{convertDateString(deposit.created_at)}</p>
                     </td>
                     <td>${formatAmount(deposit.amount)}</td>
