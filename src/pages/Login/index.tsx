@@ -1,11 +1,17 @@
-import { faDog } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SubmitHandler } from 'react-hook-form';
+import { FormContainer, FormTitle } from './styles';
+import { LoginForm } from '../../components/LoginForm';
+import { FormData } from '../../components/LoginForm/types';
 
 export const Login = () => {
-    return (
-        <>
-            <p>Login</p>
-            <FontAwesomeIcon icon={faDog} />
-        </>
-    );
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data);
+  };
+
+  return (
+    <FormContainer>
+        <FormTitle>Turno Admin</FormTitle>
+        <LoginForm onSubmit={onSubmit} />
+    </FormContainer>
+  );
 };
