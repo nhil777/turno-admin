@@ -10,6 +10,7 @@ import ErrorPage from './pages/Error';
 import { Login } from './pages/Login';
 import { DepositList } from './pages/DepositsList';
 import { DepositView } from './pages/DepositView';
+import { ProtectedRoute } from './ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -17,9 +18,9 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
+      { path: '/', element: <ProtectedRoute element={<DepositList />} /> },
+      { path: 'deposit/:id', element: <ProtectedRoute element={<DepositView />} /> },
       { path: 'login', element: <Login /> },
-      { path: 'deposit', element: <DepositList /> },
-      { path: 'deposit/:id', element: <DepositView /> }
     ],
   },
 ]);

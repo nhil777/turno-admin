@@ -9,9 +9,7 @@ export const DepositView = () => {
     const [deposit, setDeposit] = useState<Deposit>();
 
     const getDeposit = async () => {
-        if (!id) return;
-
-        get(parseInt(id)).then(response => {
+        get(parseInt(id!)).then(response => {
             setDeposit(response);
         }).catch(() => {
             alert('Error fetching deposit, refresh the page and try again');
@@ -42,11 +40,11 @@ export const DepositView = () => {
         getDeposit();
     }, []);
 
-    return isLoading || !deposit ? <p>Loading</p> : (
+    return isLoading ? <p>Loading</p> : (
         <>
             <p>{JSON.stringify(deposit)}</p>
-            <button onClick={() => approveDeposit(deposit.id)}>Approve</button>
-            <button onClick={() => rejectDeposit(deposit.id)}>Reject</button>
+            <button onClick={() => approveDeposit(deposit!.id)}>Approve</button>
+            <button onClick={() => rejectDeposit(deposit!.id)}>Reject</button>
         </>
     );
 };
