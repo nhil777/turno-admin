@@ -1,4 +1,4 @@
-import { login, logout, isAuthenticated, getToken } from './index';
+import { login, logout, checkAuthStatus, getToken } from './index';
 import { LoginData } from '../../components/LoginForm/types';
 import API from '../Api';
 import MockAdapter from 'axios-mock-adapter';
@@ -19,12 +19,12 @@ describe('Auth service', () => {
     });
 
     it('should return false if user is not authenticated', () => {
-        expect(isAuthenticated()).toBe(false);
+        expect(checkAuthStatus()).toBe(false);
     });
 
     it('should return true if user is authenticated', () => {
         localStorage.setItem(TOKEN_KEY, mockToken);
-        expect(isAuthenticated()).toBe(true);
+        expect(checkAuthStatus()).toBe(true);
     });
 
     it('should return null if no token is found', () => {

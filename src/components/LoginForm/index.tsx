@@ -1,30 +1,41 @@
 import { useForm } from 'react-hook-form';
 import { LoginData, LoginFormI } from './types';
-import { ErrorContainer, InputWrapper } from './styles';
+import { Button, Form } from 'react-bootstrap';
 
 export const LoginForm = ({ onSubmit }: LoginFormI) => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-        <InputWrapper>
-            <input
+    <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form.Group controlId="formEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
                 type="email"
                 placeholder="Ex: joe@doe.com"
                 {...register('email', { required: 'Email is required' })}
+                isInvalid={!!errors.email}
             />
-            {errors.email && <ErrorContainer>{errors.email.message}</ErrorContainer>}
-        </InputWrapper>
-        <InputWrapper>
-            <input
+            <Form.Control.Feedback type="invalid">
+                {errors.email?.message}
+            </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group controlId="formPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
                 type="password"
                 placeholder="Password"
                 {...register('password', { required: 'Password is required' })}
+                isInvalid={!!errors.password}
             />
-            {errors.password && <ErrorContainer>{errors.password.message}</ErrorContainer>}
-        </InputWrapper>
+            <Form.Control.Feedback type="invalid">
+                {errors.password?.message}
+            </Form.Control.Feedback>
+        </Form.Group>
 
-        <button type="submit">Login</button>
-    </form>
+        <Button variant="primary" type="submit" className="mt-3">
+            Login
+        </Button>
+    </Form>
   );
 };

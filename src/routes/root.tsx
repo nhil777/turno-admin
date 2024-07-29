@@ -1,15 +1,17 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import { isAuthenticated, logout } from "../services/Auth";
+import { Outlet } from "react-router-dom";
+import { Header } from "../components/Header";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Root() {
-    const navigate = useNavigate();
+    const { isAuthenticated } = useAuth();
 
     return (
         <>
-            {isAuthenticated() && <button onClick={() => {
-                logout().then(() => navigate('/login'))
-            }}>Logout</button>}
+            {isAuthenticated && <Header />}
             <Outlet />
+            <ToastContainer />
         </>
     );
 }

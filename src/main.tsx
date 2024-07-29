@@ -11,6 +11,7 @@ import { Login } from './pages/Login';
 import { DepositList } from './pages/DepositsList';
 import { DepositView } from './pages/DepositView';
 import { ProtectedRoute } from './ProtectedRoute';
+import { AuthProvider } from './contexts/AuthContext';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>,
 )
