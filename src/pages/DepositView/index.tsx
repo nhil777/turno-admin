@@ -38,7 +38,7 @@ export const DepositView = () => {
         setIsLoading(true);
 
         reject(id).then(() => {
-            toast.success('Deposit rejectd');
+            toast.success('Deposit rejected');
 
             getDeposit();
         }).catch(() => {
