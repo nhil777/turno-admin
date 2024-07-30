@@ -1,56 +1,12 @@
-import { useEffect, useState } from "react";
-import { Deposit } from "../../services/Deposit/types";
-import { approve, get, reject } from "../../services/Deposit";
-import { useParams } from "react-router-dom";
-import { Button, Form, InputGroup } from "react-bootstrap";
-import { Spinner } from "../../components/Spinner";
+import { Button, Form, InputGroup, Spinner } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faMoneyBill, faNewspaper, faUser } from "@fortawesome/free-solid-svg-icons";
 import { formatAmount } from "../../Helper";
-import { toast } from "react-toastify";
+import { CenteredContainer } from "../CenteredContainer";
+import { DepositFormProps } from "./types";
 
-export const DepositView = () => {
-    const { id } = useParams();
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [deposit, setDeposit] = useState<Deposit>();
-
-    const getDeposit = async () => {
-        get(parseInt(id!)).then(response => {
-            setDeposit(response);
-        }).catch(() => {
-            toast.error('Error fetching deposit, refresh the page and try again');
-        }).finally(() => setIsLoading(false));
-    }
-
-    const approveDeposit = (id: number) => {
-        setIsLoading(true);
-
-        approve(id).then(() => {
-            toast.success('Deposit approved');
-
-            getDeposit();
-        }).catch(() => {
-            toast.error('Error approving deposit, refresh the page and try again');
-        }).finally(() => setIsLoading(false));
-    };
-
-    const rejectDeposit = (id: number) => {
-        setIsLoading(true);
-
-        reject(id).then(() => {
-            toast.success('Deposit rejected');
-
-            getDeposit();
-        }).catch(() => {
-            toast.error('Error rejecting deposit, refresh the page and try again');
-        }).finally(() => setIsLoading(false));
-    };
-
-    useEffect(() => {
-        getDeposit();
-    }, []);
-
-    return isLoading || !deposit ? <Spinner /> : (
+export const DepositForm = ({ deposit, isLoading, approve, reject }: DepositFormProps) => {
+    return (
         <>
             <InputGroup className="mb-3">
                 <InputGroup.Text>
@@ -102,11 +58,11 @@ export const DepositView = () => {
             </InputGroup>
 
             {isLoading ? <Spinner /> : (
-                <div className="d-flex justify-content-center gap-2">
-                    <Button variant="success" onClick={() => approveDeposit(deposit!.id)}>Approve</Button>
-                    <Button variant="danger" onClick={() => rejectDeposit(deposit!.id)}>Reject</Button>
-                </div>
+                <CenteredContainer>
+                    <Button variant="success" onClick={approve}>Approve</Button>
+                    <Button variant="danger" onClick={reject}>Reject</Button>
+                </CenteredContainer>
             )}
         </>
-    );
-};
+    )
+}

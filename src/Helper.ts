@@ -1,7 +1,4 @@
-export const formatAmount = (amount: number): string => {
-    return (amount / 100).toFixed(2);
-}
-
+export const formatAmount = (amount: number): string => (amount / 100).toFixed(2);
 export const convertDateString = (dateString: string) => {
     return new Date(dateString).toLocaleString('en-US', {
         month: '2-digit',

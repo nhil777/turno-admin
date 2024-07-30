@@ -1,5 +1,6 @@
 import { Alert, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { CenteredContainer } from "../../components/CenteredContainer";
 
 export default function ErrorPage() {
   return (
@@ -9,10 +10,9 @@ export default function ErrorPage() {
         <p>
           An unexpected error has occurred. Please try again later or contact support if the issue persists.
         </p>
-        <hr />
-        <div className="d-flex justify-content-end">
+        <CenteredContainer>
           <Link to="/">Go to Home</Link>
-        </div>
+        </CenteredContainer>
       </Alert>
     </Container>
   )

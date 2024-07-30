@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Deposit } from "../../services/Deposit/types";
 import { list } from "../../services/Deposit";
-import { DepositTable } from "../../components/DepositTable";
+import { DepositsTable } from "../../components/DepositsTable";
 import { Spinner } from "../../components/Spinner";
 import { toast } from "react-toastify";
 
-export const DepositList = () => {
+export const Deposits = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [deposits, setDeposits] = useState<Deposit[]>([]);
 
@@ -21,5 +21,5 @@ export const DepositList = () => {
         getDeposits();
     }, []);
 
-    return isLoading ? <Spinner /> : <DepositTable deposits={deposits} />;
+    return isLoading ? <Spinner /> : <DepositsTable deposits={deposits} />;
 };

@@ -1,5 +1,5 @@
 import { Deposit } from "../../services/Deposit/types";
 
-export interface DepositTableProps {
+export interface DepositsTableProps {
     deposits: Deposit[];
 }

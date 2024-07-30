@@ -1,8 +1,8 @@
 import { Table } from "react-bootstrap";
-import { DepositTableProps } from "./types";
+import { DepositsTableProps } from "./types";
 import { DepositRow } from "../DepositRow";
 
-export const DepositTable = ({ deposits }: DepositTableProps) => {
+export const DepositsTable = ({ deposits }: DepositsTableProps) => {
     return (
         <Table striped bordered hover>
           <tbody>

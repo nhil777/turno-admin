@@ -1,19 +1,19 @@
 import { SubmitHandler } from 'react-hook-form';
 import { LoginForm } from '../../components/LoginForm';
-import { LoginData } from '../../components/LoginForm/types';
+import { Login as LoginType } from '../../components/LoginForm/types';
 import { login } from '../../services/Auth';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Spinner } from '../../components/Spinner';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/Auth/useAuth';
 
 export const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setIsAuthenticated } = useAuth();
-  const onSubmit: SubmitHandler<LoginData> = async (data) => {
+  const onSubmit: SubmitHandler<LoginType> = async (data) => {
     setIsLoading(true);
 
     const { email, password } = data;

@@ -1,10 +1,10 @@
 import { SubmitHandler } from "react-hook-form";
 
-export type LoginData = {
+export type Login = {
     email: string;
     password: string;
 }
 
-export interface LoginFormI {
-    onSubmit: SubmitHandler<LoginData>;
+export interface LoginFormProps {
+    onSubmit: SubmitHandler<Login>;
 }
